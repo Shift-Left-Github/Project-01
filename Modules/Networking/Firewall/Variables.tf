@@ -14,3 +14,6 @@ variable "location" {
   type = string
   
 }
+variable "Vnet_Range" {
+  type = string
+}

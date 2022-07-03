@@ -1,6 +1,7 @@
 module "network" {
   source = "../"
   RSG_Name = var.resource_group_name
+  Vnet_Range = [var.Vnet_Range]
 }
 
 resource "azurerm_subnet" "FW_Subnet" {

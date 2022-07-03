@@ -17,7 +17,7 @@ variable "RSG_Name" {
 
 variable "Vnet_Range" {
     type = list
-    default = ["0.0.0.0/0"]
+    
 
 }
 

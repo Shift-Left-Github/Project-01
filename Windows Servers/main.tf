@@ -26,6 +26,7 @@ module "FW" {
   address_prefix = "192.170.2.0/24"
   location = azurerm_resource_group.RSG.location
   resource_group_name = azurerm_resource_group.RSG.name
+  Vnet_Range  = "192.170.0.0/16"
 }
 
 module "VM1" {
@@ -36,7 +37,7 @@ location = azurerm_resource_group.RSG.location
 VM_name = "${var.computername}-${count.index}"
 Size = "Standard_F2"
 admin_username = "azure-${count.index}"
-admin_password = var.admin_password
+admin_password = var.admin_password #8-123 letters/numbers
 subnet_id = module.Sub_01.SubnetOutput.id
 nic_name = lower("${var.RSG_Name}-${count.index}")
 }
