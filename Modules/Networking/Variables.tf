@@ -12,7 +12,6 @@ variable "location" {
 
 variable "RSG_Name" {
     type = string
-    default = "value"
 
 }
 

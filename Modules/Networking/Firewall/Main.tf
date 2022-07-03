@@ -1,5 +1,6 @@
 module "network" {
   source = "../"
+  RSG_Name = var.resource_group_name
 }
 
 resource "azurerm_subnet" "FW_Subnet" {
