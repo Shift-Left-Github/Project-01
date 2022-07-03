@@ -11,6 +11,8 @@ module "Net_01" {
   Vnet_Range = ["192.170.0.0/16"]
   DNS_Range  = ["1.1.1.2", "1.1.1.1"]
   route01        = "route01"
+  FW_Subnet_address_prefix = "192.170.2.0/24"
+  fw_name = "EUS-Development-FW-01"
 }
 module "Sub_01" {
   source               = "../Modules/Networking/Subnets/"
@@ -19,15 +21,6 @@ module "Sub_01" {
   virtual_network_name = module.Net_01.VNET.name
   address_prefix       = "192.170.1.0/24"
 
-}
-
-module "FW" {
-  source              = "../Modules/Networking/Firewall/"
-  fw_name             = "firewall01"
-  address_prefix      = "192.170.2.0/24"
-  location            = azurerm_resource_group.RSG.location
-  resource_group_name = azurerm_resource_group.RSG.name
-  Vnet_Range          = "192.170.0.0/16"
 }
 
 module "VM1" {

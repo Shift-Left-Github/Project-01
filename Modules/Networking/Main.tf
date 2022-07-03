@@ -4,7 +4,7 @@ resource "azurerm_virtual_network" "Network" {
   location            = var.location
   resource_group_name = var.RSG_Name
   address_space       = var.Vnet_Range
-  dns_servers         = var.DNS_Range
+  dns_servers         = var.destination_port_range  #Need to add the private IP of the firewall here. "azurerm_firewall.fw01.ip_configuration[0].private_ip_address"
 
 }
 resource "azurerm_route_table" "rt01" {
@@ -21,6 +21,34 @@ resource "azurerm_route_table" "rt01" {
 
   tags = {
     environment = "Development"
+  }
+}
+resource "azurerm_subnet" "FW_Subnet" {
+  name                 = "AzureFirewallSubnet"
+  resource_group_name  = var.RSG_Name
+  virtual_network_name = azurerm_virtual_network.Network.name
+  address_prefixes     =  [var.FW_Subnet_address_prefix]
+}
+
+resource "azurerm_public_ip" "Public_IP" {
+  name                = "testpip"
+  location            = var.location
+  resource_group_name = var.RSG_Name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_firewall" "fw01" {
+  name                = var.fw_name
+  location            = var.location
+  resource_group_name = var.RSG_Name
+  sku_name            = "AZFW_VNet"
+  sku_tier            = "Standard"
+
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = azurerm_subnet.FW_Subnet.id
+    public_ip_address_id = azurerm_public_ip.Public_IP.id
   }
 }
 

@@ -31,6 +31,14 @@ variable "route01" {
     default = "0"
     description = "(optional) describe your variable"
 }
+variable "FW_Subnet_address_prefix" {
+    type = string
+    description = "(optional) describe your variable"
+}
+variable "fw_name" {
+    type = string
+    description = "(optional) describe your variable"
+}
 /*
 variable "Subnet_Name" {
   type = string
