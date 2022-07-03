@@ -20,11 +20,11 @@ variable "client_id" {
 */
 variable "RSG_Name" {
   default = "AVD-EUS2-Development"
-  type = string
+  type    = string
 }
 variable "computername" { #Computer name has to be under 15 characters
   default = "Desktop"
-  type = string
+  type    = string
 }
 
 variable "admin_password" {
@@ -36,8 +36,8 @@ variable "admin_username" {
 variable "location" {
   type = map(string)
   default = {
-    east = "eastus2"
-    west = "westus2"
+    east    = "eastus2"
+    west    = "westus2"
     central = "centralus"
   }
 }

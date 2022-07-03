@@ -4,7 +4,7 @@ data "azurerm_subscription" "current" {
 terraform {
   required_providers {
     azurerm = {
-      source = "hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "3.12.0"
     }
   }
