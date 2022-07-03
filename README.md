@@ -6,3 +6,4 @@
    - Azure Virtual Network (with subnet(s))
    - Azure Virtual Machines
    - Azure Firewall
+   - Route Table
