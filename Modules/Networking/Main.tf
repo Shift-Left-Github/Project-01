@@ -4,7 +4,7 @@ resource "azurerm_virtual_network" "Network" {
   location            = var.location
   resource_group_name = var.RSG_Name
   address_space       = var.Vnet_Range
-  dns_servers         = var.destination_port_range  #Need to add the private IP of the firewall here. "azurerm_firewall.fw01.ip_configuration[0].private_ip_address"
+  dns_servers         = var.DNS_Range  #Need to add the private IP of the firewall here. "azurerm_firewall.fw01.ip_configuration[0].private_ip_address"
 
 }
 resource "azurerm_route_table" "rt01" {
