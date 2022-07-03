@@ -20,9 +20,10 @@ resource "azurerm_route_table" "rt01" {
   }
 
   tags = {
-    environment = "Production"
+    environment = "Development"
   }
 }
+
 /*
 resource "azurerm_network_security_group" "NSG1" {
   name                = "nsg1"

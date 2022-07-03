@@ -43,7 +43,11 @@ module "VM1" {
   nic_name       = lower("${var.RSG_Name}-${count.index}")
 
 }
-
+# Associate the subnet with the route table.
+resource "azurerm_subnet_route_table_association" "rtassociation" {
+  subnet_id      = module.Sub_01.SubnetOutput.id
+  route_table_id = module.Net_01.RTTable01.id
+}
 ### Building extentions into the VMS via the extentions module
 
 /*
