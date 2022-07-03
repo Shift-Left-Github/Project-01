@@ -26,7 +26,11 @@ variable "DNS_Range" {
     default = ["1.1.1.1"]
 
 }
-
+variable "route01" {
+    type = string
+    default = "0"
+    description = "(optional) describe your variable"
+}
 /*
 variable "Subnet_Name" {
   type = string

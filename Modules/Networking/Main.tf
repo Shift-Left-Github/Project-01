@@ -1,15 +1,4 @@
 
-/*
-resource "azurerm_network_security_group" "example" {
-  name                = "example-security-group"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-} */
-
-terraform {
-  required_version = ">=0.12"
-}
-
 resource "azurerm_virtual_network" "Network" {
   name                = var.vnet_name
   location            = var.location
@@ -18,17 +7,22 @@ resource "azurerm_virtual_network" "Network" {
   dns_servers         = var.DNS_Range
 
 }
-/*
-resource "azurerm_subnet" "example" {
-  name                 = var.Subnet_Name
-  resource_group_name  = var.RSG_Name
-  virtual_network_name = azurerm_virtual_network.Network.name
-  address_prefixes     = var.Subnet_Range
-  service_endpoints = ["Microsoft.Storage","Microsoft.KeyVault", "Microsoft.AzureActiveDirectory", ]
+resource "azurerm_route_table" "rt01" {
+  name                          = var.route01
+  location                      = var.location
+  resource_group_name           = var.RSG_Name
+  disable_bgp_route_propagation = false
 
+  route {
+    name           = "route1"
+    address_prefix = "0.0.0.0/0"
+    next_hop_type  = "VnetLocal"
+  }
 
+  tags = {
+    environment = "Production"
+  }
 }
-*/
 /*
 resource "azurerm_network_security_group" "NSG1" {
   name                = "nsg1"

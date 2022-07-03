@@ -10,6 +10,7 @@ module "Net_01" {
   RSG_Name   = azurerm_resource_group.RSG.name
   Vnet_Range = ["192.170.0.0/16"]
   DNS_Range  = ["1.1.1.2", "1.1.1.1"]
+  route01        = "route01"
 }
 module "Sub_01" {
   source               = "../Modules/Networking/Subnets/"
@@ -40,6 +41,7 @@ module "VM1" {
   admin_password = var.admin_password #8-123 characters
   subnet_id      = module.Sub_01.SubnetOutput.id
   nic_name       = lower("${var.RSG_Name}-${count.index}")
+
 }
 
 ### Building extentions into the VMS via the extentions module
