@@ -37,7 +37,7 @@ location = azurerm_resource_group.RSG.location
 VM_name = "${var.computername}-${count.index}"
 Size = "Standard_F2"
 admin_username = "azure-${count.index}"
-admin_password = var.admin_password #8-123 letters/numbers
+admin_password = var.admin_password #8-123 characters
 subnet_id = module.Sub_01.SubnetOutput.id
 nic_name = lower("${var.RSG_Name}-${count.index}")
 }
