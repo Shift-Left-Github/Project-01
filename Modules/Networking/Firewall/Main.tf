@@ -26,7 +26,7 @@ resource "azurerm_firewall" "fw01" {
 
   ip_configuration {
     name                 = "configuration"
-    subnet_id            = module.subnet.SubnetOutput.id
+    subnet_id            = azurerm_subnet.FW_Subnet.id
     public_ip_address_id = azurerm_public_ip.Public_IP.id
   }
 }

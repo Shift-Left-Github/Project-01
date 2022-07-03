@@ -23,7 +23,7 @@ source = "../Modules/Networking/Subnets/"
 module "FW" {
   source = "../Modules/Networking/Firewall/"
   fw_name = "firewall01"
-  address_prefix = ["192.170.2.0/24"]
+  address_prefix = "192.170.2.0/24"
   location = azurerm_resource_group.RSG.location
   resource_group_name = azurerm_resource_group.RSG.name
 }

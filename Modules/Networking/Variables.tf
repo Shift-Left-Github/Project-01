@@ -1,25 +1,30 @@
 variable "vnet_name" {
     type = string
+    default = "value"
     description = "Virtual Network Name"
 }
 
 variable "location" {
     type = string
+    default = "eastus2"
     description = "Virtual Network Location"
 }
 
 variable "RSG_Name" {
     type = string
+    default = "value"
 
 }
 
 variable "Vnet_Range" {
     type = list
+    default = ["0.0.0.0/0"]
 
 }
 
 variable "DNS_Range" {
     type = list
+    default = ["1.1.1.1"]
 
 }
 

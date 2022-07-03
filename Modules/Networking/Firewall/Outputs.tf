@@ -1,4 +1,3 @@
-output "SubnetOutput" {
-  value = azurerm_subnet.example
-  description = "Export the subnet for the associated resource"
+output "FW" {
+  value = azurerm_firewall.fw01
 }
