@@ -5,6 +5,8 @@ resource "azurerm_windows_virtual_machine" "VM1" {
   size                = var.Size
   admin_username      = var.admin_username
   admin_password      = var.admin_password
+ timezone= "Eastern Standard Time"
+  allow_extension_operations = true
   network_interface_ids = [
     azurerm_network_interface.nic1.id,
   ]
@@ -20,12 +22,16 @@ resource "azurerm_windows_virtual_machine" "VM1" {
     sku       = "2019-Datacenter"
     version   = "latest"
   }
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 resource "azurerm_network_interface" "nic1" {
   name                = var.nic_name
   location            = var.location
   resource_group_name = var.RSG_Name
+  enable_accelerated_networking = true
 
   ip_configuration {
     name                          = "internal"

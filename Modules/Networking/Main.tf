@@ -95,6 +95,10 @@ resource "azurerm_firewall_policy" "Policy01" {
   name                = "${var.RSG_Name}-Policy-01"
   resource_group_name =var.RSG_Name
   location            = var.location
+  
+  dns {
+    proxy_enabled = true
+  }
 }
 
 /*

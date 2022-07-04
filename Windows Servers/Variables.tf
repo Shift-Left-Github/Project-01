@@ -10,7 +10,8 @@ variable "computername" { #Computer name has to be under 15 characters
 }
 
 variable "admin_password" {
-  type = string
+  type      = string
+  sensitive = true
 }
 variable "admin_username" {
   type = string

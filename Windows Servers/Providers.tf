@@ -13,11 +13,12 @@ provider "azurerm" {
   // skip_provider_registration = true
   features {}
 }
-
+/*
 resource "random_password" "password" {
   length           = 26
   special          = true
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
-# May need ${rsadecrypt(self.password\_data,file("/path/to/private\_key.pem"))} to decrypt RSA keys to base64 - Maninly Linux
+# May need ${rsadecrypt(self.password\_data,file("/path/to/private\_key.pem"))} to decrypt RSA keys used by TF to base64
+*/
