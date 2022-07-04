@@ -39,3 +39,13 @@ variable "Subnet_Name" {
 variable "subnet_address_prefix" {
   type = string
 }
+
+variable "subnet_address_prefix_bastion" {
+    type = string
+    description = "(optional) describe your variable"
+}
+/*
+variable "FW_Policy" {
+    type = string
+    description = "(optional) describe your variable"
+}*/

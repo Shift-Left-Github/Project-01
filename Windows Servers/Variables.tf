@@ -1,7 +1,7 @@
 # Some feilds are required for Terrafom Cloud deployments.
 
 variable "RSG_Name" {
-  default = "AVD-EUS2-Development"
+  default = "EUS2-Development"
   type    = string
 }
 variable "computername" { #Computer name has to be under 15 characters

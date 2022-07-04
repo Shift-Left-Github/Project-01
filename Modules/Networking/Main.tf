@@ -12,6 +12,12 @@ resource "azurerm_subnet" "subnet01" {
   virtual_network_name = azurerm_virtual_network.Network.name
   address_prefixes     = [var.subnet_address_prefix]
 }
+resource "azurerm_subnet" "BastionSubnet" {
+  name                 = "AzureBastionSubnet"
+  resource_group_name  = var.RSG_Name
+  virtual_network_name = azurerm_virtual_network.Network.name
+  address_prefixes     = [var.subnet_address_prefix_bastion]
+}
 
 resource "azurerm_route_table" "rt01" {
   name                          = var.route01
@@ -30,6 +36,47 @@ resource "azurerm_route_table" "rt01" {
     environment = "Development"
   }
 }
+
+resource "azurerm_virtual_network_dns_servers" "dns01" {
+  virtual_network_id = azurerm_virtual_network.Network.id
+  dns_servers        = [azurerm_firewall.fw01.ip_configuration[0].private_ip_address]
+}
+
+resource "azurerm_public_ip" "BastionIP" {
+  name                = "bastion-publicip"
+  location            = var.location
+  resource_group_name = var.RSG_Name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_bastion_host" "Bastion01" {
+  name                = "Bastion-01"
+  location            = var.location
+  resource_group_name = var.RSG_Name
+
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = azurerm_subnet.BastionSubnet.id
+    public_ip_address_id = azurerm_public_ip.BastionIP.id
+  }
+}
+## FW
+resource "azurerm_firewall" "fw01" {
+  name                = var.fw_name
+  location            = var.location
+  resource_group_name = var.RSG_Name
+  sku_name            = "AZFW_VNet"
+  sku_tier            = "Standard"
+  firewall_policy_id = azurerm_firewall_policy.Policy01.id
+  //firewall_policy_id = var.FW_Policy
+
+  ip_configuration {
+    name                 = "configuration"
+    subnet_id            = azurerm_subnet.FW_Subnet.id
+    public_ip_address_id = azurerm_public_ip.Public_IP.id
+  }
+}
 resource "azurerm_subnet" "FW_Subnet" {
   name                 = "AzureFirewallSubnet"
   resource_group_name  = var.RSG_Name
@@ -38,29 +85,16 @@ resource "azurerm_subnet" "FW_Subnet" {
 }
 
 resource "azurerm_public_ip" "Public_IP" {
-  name                = "testpip"
+  name                = lower("${var.RSG_Name}publicip")
   location            = var.location
   resource_group_name = var.RSG_Name
   allocation_method   = "Static"
   sku                 = "Standard"
 }
-
-resource "azurerm_firewall" "fw01" {
-  name                = var.fw_name
+resource "azurerm_firewall_policy" "Policy01" {
+  name                = "${var.RSG_Name}-Policy-01"
+  resource_group_name =var.RSG_Name
   location            = var.location
-  resource_group_name = var.RSG_Name
-  sku_name            = "AZFW_VNet"
-  sku_tier            = "Standard"
-
-  ip_configuration {
-    name                 = "configuration"
-    subnet_id            = azurerm_subnet.FW_Subnet.id
-    public_ip_address_id = azurerm_public_ip.Public_IP.id
-  }
-}
-resource "azurerm_virtual_network_dns_servers" "dns01" {
-  virtual_network_id = azurerm_virtual_network.Network.id
-  dns_servers        = [azurerm_firewall.fw01.ip_configuration[0].private_ip_address]
 }
 
 /*
