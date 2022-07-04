@@ -1,23 +1,5 @@
 # Some feilds are required for Terrafom Cloud deployments.
-/*
-variable "Subscription" {
-    type = map(string)
 
-}
-
-variable "tenant_id" {
-  type = string
-}
-
-variable "client_secret" {
-  type = string
-}
-
-variable "client_id" {
-  type = string
-}
-
-*/
 variable "RSG_Name" {
   default = "AVD-EUS2-Development"
   type    = string
@@ -41,3 +23,22 @@ variable "location" {
     central = "centralus"
   }
 }
+/*
+variable "Subscription" {
+    type = map(string)
+
+}
+
+variable "tenant_id" {
+  type = string
+}
+
+variable "client_secret" {
+  type = string
+}
+
+variable "client_id" {
+  type = string
+}
+
+*/

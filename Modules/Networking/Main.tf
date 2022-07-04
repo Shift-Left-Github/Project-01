@@ -4,9 +4,15 @@ resource "azurerm_virtual_network" "Network" {
   location            = var.location
   resource_group_name = var.RSG_Name
   address_space       = var.Vnet_Range
-  dns_servers         = var.DNS_Range  #Need to add the private IP of the firewall here. "azurerm_firewall.fw01.ip_configuration[0].private_ip_address"
 
 }
+resource "azurerm_subnet" "subnet01" {
+  name                 = var.Subnet_Name
+  resource_group_name  = var.RSG_Name
+  virtual_network_name = azurerm_virtual_network.Network.name
+  address_prefixes     = [var.subnet_address_prefix]
+}
+
 resource "azurerm_route_table" "rt01" {
   name                          = var.route01
   location                      = var.location
@@ -15,8 +21,9 @@ resource "azurerm_route_table" "rt01" {
 
   route {
     name           = "route1"
+    next_hop_type  = "VirtualAppliance"
     address_prefix = "0.0.0.0/0"
-    next_hop_type  = "VnetLocal"
+    next_hop_in_ip_address = azurerm_firewall.fw01.ip_configuration[0].private_ip_address
   }
 
   tags = {
@@ -50,6 +57,10 @@ resource "azurerm_firewall" "fw01" {
     subnet_id            = azurerm_subnet.FW_Subnet.id
     public_ip_address_id = azurerm_public_ip.Public_IP.id
   }
+}
+resource "azurerm_virtual_network_dns_servers" "dns01" {
+  virtual_network_id = azurerm_virtual_network.Network.id
+  dns_servers        = [azurerm_firewall.fw01.ip_configuration[0].private_ip_address]
 }
 
 /*

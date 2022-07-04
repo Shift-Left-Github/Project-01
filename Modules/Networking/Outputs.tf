@@ -7,9 +7,7 @@ output "RTTable01" {
 output "FW" {
   value = azurerm_firewall.fw01
 }
-/*
 output "SubnetOutput" {
-  value = azurerm_subnet.example
+  value = azurerm_subnet.subnet01
   description = "Export the subnet for the associated resource"
 }
-*/

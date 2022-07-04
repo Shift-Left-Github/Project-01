@@ -18,17 +18,11 @@ variable "RSG_Name" {
 variable "Vnet_Range" {
     type = list
     
-
 }
 
-variable "DNS_Range" {
-    type = list
-    default = ["1.1.1.1"]
-
-}
 variable "route01" {
     type = string
-    default = "0"
+    //default = "0"
     description = "(optional) describe your variable"
 }
 variable "FW_Subnet_address_prefix" {
@@ -39,24 +33,9 @@ variable "fw_name" {
     type = string
     description = "(optional) describe your variable"
 }
-/*
 variable "Subnet_Name" {
   type = string
 }
-
-variable "Subnet_Range" {
-    type = list
-    description = "(optional) describe your variable"
+variable "subnet_address_prefix" {
+  type = string
 }
-
-variable "source_address_prefix" {
-    type = string
-    description = "(optional) describe your variable"
-}
-
-variable "destination_address_prefix" {
-    type = string
-    description = "(optional) describe your variable"
-}
-
-*/
