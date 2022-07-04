@@ -11,6 +11,7 @@ resource "azurerm_subnet" "subnet01" {
   resource_group_name  = var.RSG_Name
   virtual_network_name = azurerm_virtual_network.Network.name
   address_prefixes     = [var.subnet_address_prefix]
+  service_endpoints = ["Microsoft.AzureActiveDirectory","Microsoft.AzureActiveDirectory", "Microsoft.Storage",  ]
 }
 resource "azurerm_subnet" "BastionSubnet" {
   name                 = "AzureBastionSubnet"
