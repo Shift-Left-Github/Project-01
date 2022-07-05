@@ -7,5 +7,5 @@
    - Azure Virtual Machines
    - Azure Firewall
    - Firewall Policy (rules to come. Defaults to deny all outbound connections)
-   - Route Table
+   - Route Table (VM subnet -> Firewall private IP)
    
